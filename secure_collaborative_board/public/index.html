@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau Collaboratif Sécurisé</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="container">
+        <header class="hero">
+            <h1>Tableau Collaboratif Sécurisé</h1>
+            <p>
+                Ajoutez, modifiez et supprimez des notes post-it en temps réel. Les actions d’écriture
+                sont protégées par authentification et chaque utilisateur ne peut gérer que ses propres notes.
+            </p>
+        </header>
+
+        <section class="auth-panel" id="auth-panel">
+            <div class="panel">
+                <h2>Connexion</h2>
+                <form id="login-form" autocomplete="on">
+                    <label for="login-username">Pseudo</label>
+                    <input id="login-username" name="username" type="text" required>
+
+                    <label for="login-password">Mot de passe</label>
+                    <input id="login-password" name="password" type="password" required>
+
+                    <button type="submit">Se connecter</button>
+                </form>
+            </div>
+            <div class="panel secondary">
+                <h2>Inscription</h2>
+                <form id="register-form" autocomplete="off">
+                    <label for="register-username">Pseudo</label>
+                    <input id="register-username" name="username" type="text" required minlength="3">
+
+                    <label for="register-password">Mot de passe</label>
+                    <input id="register-password" name="password" type="password" required minlength="6">
+
+                    <button type="submit">Créer un compte</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="dashboard" class="hidden">
+            <div class="session-bar">
+                <p>Connecté en tant que <strong id="current-user">?</strong></p>
+                <button id="logout-button" type="button">Se déconnecter</button>
+            </div>
+
+            <section class="composer">
+                <h2>Nouvelle note</h2>
+                <form id="note-form">
+                    <label for="note-content">Contenu</label>
+                    <textarea id="note-content" name="content" rows="3" placeholder="Ce que je dois faire..." required></textarea>
+                    <button type="submit">Ajouter</button>
+                </form>
+            </section>
+        </section>
+
+        <section class="board">
+            <div class="board-header">
+                <h2>Notes partagées</h2>
+                <span id="notes-count" class="pill">0 note</span>
+            </div>
+            <ul id="notes-list" class="notes" aria-live="polite"></ul>
+        </section>
+
+        <section class="tips">
+            <h2>Scénarios à tester</h2>
+            <ul>
+                <li>Créer deux comptes, ajouter des notes simultanément et vérifier la synchronisation en temps réel.</li>
+                <li>Tenter de modifier ou supprimer une note dont vous n’êtes pas l’auteur (doit échouer).</li>
+                <li>Ouvrir l’application en navigation privée pour visualiser le mode lecture seule.</li>
+            </ul>
+        </section>
+    </main>
+
+    <template id="note-template">
+        <li class="note">
+            <div class="note-content"></div>
+            <footer>
+                <span class="meta"></span>
+                <div class="actions">
+                    <button data-action="edit" type="button">Modifier</button>
+                    <button data-action="delete" type="button" class="danger">Supprimer</button>
+                </div>
+            </footer>
+        </li>
+    </template>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>
