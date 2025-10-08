@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotations Boursières en Temps Réel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <main class="container">
+        <h1>Cotations Boursières en Temps Réel</h1>
+        <p class="subtitle">
+            Ce tableau affiche des données fictives diffusées par un flux SSE Flask. Ajoutez d'autres onglets
+            pour voir la diffusion simultanée.
+        </p>
+
+        <section id="stock-quotes" class="quotes-grid">
+            {% for symbol in symbols %}
+            <article class="stock-card" data-symbol="{{ symbol }}">
+                <header>
+                    <h2>{{ symbol }}</h2>
+                </header>
+                <p>Prix : <span class="price">–</span> €</p>
+                <p>Variation : <span class="change">–</span></p>
+                <p>Historique récent :</p>
+                <ul class="history"></ul>
+            </article>
+            {% endfor %}
+        </section>
+
+        <section class="status">
+            <span id="stream-status" class="badge offline">Déconnecté</span>
+            <button id="toggle-stream" type="button">Démarrer le flux</button>
+        </section>
+    </main>
+
+    <script>
+        window.APP_CONFIG = {
+            streamUrl: "{{ url_for('stream') }}"
+        };
+    </script>
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</body>
+</html>

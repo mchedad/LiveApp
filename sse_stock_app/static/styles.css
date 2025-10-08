@@ -1,0 +1,119 @@
+:root {
+    color-scheme: light;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #f5f7fb;
+    color: #1a1f36;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 3rem;
+}
+
+h1 {
+    margin-bottom: 0.25rem;
+}
+
+.subtitle {
+    margin-top: 0;
+    color: #5c6470;
+}
+
+.quotes-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    margin: 2rem 0;
+}
+
+.stock-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.25rem;
+    border: 1px solid #d5d9e3;
+    box-shadow: 0 8px 18px -12px rgba(30, 41, 59, 0.5);
+}
+
+.stock-card header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.price-up {
+    color: #0f9d58;
+    font-weight: 600;
+}
+
+.price-down {
+    color: #d93025;
+    font-weight: 600;
+}
+
+.price-neutral {
+    color: #5c6470;
+    font-weight: 600;
+}
+
+.history {
+    list-style: none;
+    padding-left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0.5rem 0 0;
+}
+
+.history li {
+    background: #eef1f7;
+    border-radius: 999px;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.8rem;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.badge.online {
+    background: #e6f4ea;
+    color: #0f9d58;
+}
+
+.badge.offline {
+    background: #fdecea;
+    color: #c5221f;
+}
+
+#toggle-stream {
+    all: unset;
+    background: #2563eb;
+    color: #fff;
+    padding: 0.55rem 1.25rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 8px 18px -12px rgba(37, 99, 235, 0.6);
+}
+
+#toggle-stream:hover {
+    background: #1d4ed8;
+}

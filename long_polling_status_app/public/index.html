@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Tracker - Long Polling</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="container">
+        <h1>Suivi de statut en temps quasi-réel</h1>
+        <p class="lead">
+            Cette interface consomme l'endpoint <code>/poll-status</code> via Long Polling pour rester synchronisée
+            avec le serveur. Modifiez le statut ci-dessous pour forcer une notification immédiate.
+        </p>
+
+        <section class="status">
+            <h2>Statut actuel</h2>
+            <div class="status-card">
+                <p id="status-value">…</p>
+                <dl>
+                    <div>
+                        <dt>Version</dt>
+                        <dd id="status-version">–</dd>
+                    </div>
+                    <div>
+                        <dt>Dernière mise à jour</dt>
+                        <dd id="status-updated">–</dd>
+                    </div>
+                </dl>
+            </div>
+            <span id="polling-indicator" class="badge">En attente…</span>
+        </section>
+
+        <section class="controls">
+            <h2>Mettre à jour le statut (simule un déclencheur côté serveur)</h2>
+            <form id="update-form">
+                <label for="new-status">Nouveau statut</label>
+                <input id="new-status" name="status" type="text" placeholder="En cours, Terminé, Échec…" required>
+                <button type="submit">Mettre à jour</button>
+            </form>
+            <p class="hint">
+                Ouvrez cette page dans plusieurs onglets pour observer la propagation immédiate des changements.
+            </p>
+        </section>
+    </main>
+
+    <script src="app.js" defer></script>
+</body>
+</html>

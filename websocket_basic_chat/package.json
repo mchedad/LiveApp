@@ -1,0 +1,15 @@
+{
+  "name": "websocket-basic-chat",
+  "version": "1.0.0",
+  "description": "Chat minimaliste avec WebSocket natif (ws) pour diffuser les messages à tous les clients.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.17.0"
+  }
+}

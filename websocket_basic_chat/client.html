@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat WebSocket Basique</title>
+    <style>
+        :root {
+            color-scheme: light;
+            font-family: "Segoe UI", sans-serif;
+        }
+        body {
+            margin: 0;
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+        main {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem 4rem;
+        }
+        h1 {
+            margin-bottom: 0.5rem;
+        }
+        #messages {
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #cbd5f5;
+            min-height: 320px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            overflow-y: auto;
+            box-shadow: 0 10px 24px -20px rgba(15, 23, 42, 0.6);
+        }
+        .message {
+            margin-bottom: 0.75rem;
+        }
+        .message.system {
+            color: #2563eb;
+            font-style: italic;
+        }
+        #chat-form {
+            display: flex;
+            gap: 0.75rem;
+        }
+        #chat-input {
+            flex: 1;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid #cbd5f5;
+            font-size: 1rem;
+        }
+        button {
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            border: none;
+            background: #2563eb;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 24px -18px rgba(37, 99, 235, 0.6);
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+        #status {
+            font-weight: 600;
+            color: #475569;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Chat WebSocket Basique</h1>
+        <p id="status">Connexion au serveur…</p>
+        <section id="messages"></section>
+        <form id="chat-form">
+            <input id="chat-input" type="text" placeholder="Tapez votre message…" autocomplete="off" required>
+            <button type="submit">Envoyer</button>
+        </form>
+    </main>
+
+    <script>
+        const status = document.getElementById("status");
+        const messages = document.getElementById("messages");
+        const form = document.getElementById("chat-form");
+        const input = document.getElementById("chat-input");
+
+        const socket = new WebSocket("ws://localhost:8080");
+
+        function appendMessage(content, type = "chat") {
+            const el = document.createElement("div");
+            el.className = `message ${type}`;
+            const time = new Date().toLocaleTimeString();
+            el.innerHTML = `<strong>[${time}]</strong> ${content}`;
+            messages.appendChild(el);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        socket.addEventListener("open", () => {
+            status.textContent = "Connecté. Ouvrez plusieurs onglets pour tester le broadcast.";
+        });
+
+        socket.addEventListener("message", (event) => {
+            try {
+                const payload = JSON.parse(event.data);
+                const prefix = payload.type === "system" ? "📢" : "💬";
+                appendMessage(`${prefix} ${payload.content}`, payload.type);
+            } catch (error) {
+                console.error("Message invalide :", error);
+            }
+        });
+
+        socket.addEventListener("close", () => {
+            status.textContent = "Connexion fermée.";
+            appendMessage("Connexion au serveur perdue.", "system");
+        });
+
+        socket.addEventListener("error", (error) => {
+            console.error("Erreur WebSocket :", error);
+            status.textContent = "Erreur de connexion.";
+        });
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            if (socket.readyState !== WebSocket.OPEN) {
+                appendMessage("Impossible d'envoyer : socket fermée.", "system");
+                return;
+            }
+            const text = input.value.trim();
+            if (!text) {
+                return;
+            }
+            socket.send(text);
+            appendMessage(`Vous : ${text}`);
+            input.value = "";
+        });
+    </script>
+</body>
+</html>

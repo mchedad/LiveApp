@@ -1,0 +1,97 @@
+:root {
+    color-scheme: light;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #f8fafc;
+    color: #1e293b;
+}
+
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+}
+
+h1 {
+    margin-bottom: 0.5rem;
+}
+
+.lead {
+    color: #64748b;
+    margin-top: 0;
+}
+
+.panel {
+    background: #fff;
+    border: 1px solid #dbe2ef;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    box-shadow: 0 12px 28px -24px rgba(15, 23, 42, 0.6);
+}
+
+form {
+    display: grid;
+    gap: 0.75rem;
+}
+
+input[type="text"] {
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #cbd5f5;
+    font-size: 1rem;
+}
+
+button {
+    width: fit-content;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 12px 26px -20px rgba(37, 99, 235, 0.6);
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+#status {
+    margin: 1rem 0 0;
+    font-weight: 600;
+}
+
+#history {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.75rem;
+}
+
+#history li {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    background: #f1f5f9;
+}
+
+#history li span {
+    display: block;
+}
+
+#history li .original {
+    color: #475569;
+    font-size: 0.9rem;
+}
+
+#history li .transformed {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #0f172a;
+}

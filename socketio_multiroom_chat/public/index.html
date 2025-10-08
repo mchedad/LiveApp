@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.IO Multi-Room Chat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main id="chat-container">
+        <header>
+            <h1>Chat Multi-Salons</h1>
+            <p>Choisissez un pseudo, créez ou rejoignez des salons et discutez en temps réel.</p>
+        </header>
+
+        <div class="layout">
+            <aside id="rooms-panel">
+                <div class="panel-header">
+                    <h2>Salons disponibles</h2>
+                    <p>Cliquez pour rejoindre ou remplir le champ du formulaire.</p>
+                </div>
+                <ul id="rooms-list" class="rooms-list">
+                    <li class="placeholder">Aucun salon disponible pour le moment.</li>
+                </ul>
+                <form id="create-room-form">
+                    <label for="new-room-name">Créer un salon</label>
+                    <div class="create-room-controls">
+                        <input id="new-room-name" type="text" placeholder="Nom du salon" maxlength="40" required>
+                        <button type="submit">Créer</button>
+                    </div>
+                </form>
+                <p id="rooms-feedback" class="hint"></p>
+            </aside>
+
+            <section id="content-panel">
+                <section id="join-section">
+                    <form id="join-form">
+                        <label for="username">Pseudo</label>
+                        <input id="username" type="text" required placeholder="ex: Alice">
+
+                        <label for="room">Salon (ou sélectionnez à gauche)</label>
+                        <input id="room" type="text" required placeholder="ex: Général">
+
+                        <button type="submit">Rejoindre</button>
+                    </form>
+                    <p class="hint">Les salons peuvent être créés ou rejoints depuis la colonne de gauche.</p>
+                </section>
+
+                <section id="chat-section" class="hidden">
+                    <div class="chat-header">
+                        <p>Connecté en tant que <strong id="current-username">–</strong></p>
+                        <p>Salon : <strong id="current-room">–</strong></p>
+                    </div>
+                    <ul id="messages"></ul>
+                    <form id="message-form">
+                        <input id="message-input" type="text" placeholder="Votre message…" autocomplete="off" required>
+                        <button type="submit">Envoyer</button>
+                    </form>
+                </section>
+            </section>
+        </div>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>

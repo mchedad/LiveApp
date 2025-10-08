@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Capitalizer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="container">
+        <h1>WebSocket Capitalizer</h1>
+        <p class="lead">
+            Saisissez une chaîne et envoyez-la au serveur WebSocket. Le serveur renvoie la version en majuscules.
+        </p>
+
+        <section class="panel">
+            <form id="message-form">
+                <label for="message-input">Votre message</label>
+                <input id="message-input" type="text" placeholder="Ex: websocket" required autocomplete="off">
+                <button type="submit">Envoyer</button>
+            </form>
+            <p id="status">Connexion en cours…</p>
+        </section>
+
+        <section class="panel">
+            <h2>Historique</h2>
+            <ul id="history"></ul>
+        </section>
+    </main>
+
+    <script src="client.js" defer></script>
+</body>
+</html>
