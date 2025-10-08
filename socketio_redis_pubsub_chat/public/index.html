@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.IO + Redis Pub/Sub Chat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>Chat Distribué avec Redis Pub/Sub</h1>
+            <p>
+                Cette démonstration montre comment Redis synchronise plusieurs instances Socket.IO.
+                Lancez plusieurs serveurs, connectez-vous sur différents ports et échangez en temps réel.
+            </p>
+        </header>
+
+        <section class="status-panel">
+            <span id="connection-status" class="badge">Déconnexion en cours…</span>
+            <span id="participants-count" class="badge secondary">Participants : 0</span>
+        </section>
+
+        <section id="join-section">
+            <form id="join-form">
+                <label for="username">Choisissez un pseudo</label>
+                <input id="username" type="text" placeholder="ex : Camille" maxlength="30" required>
+                <button type="submit">Entrer dans le chat</button>
+            </form>
+            <p class="hint">
+                Le pseudo peut être modifié plus tard. Une fois validé, commencez à discuter dans l'onglet suivant.
+            </p>
+        </section>
+
+        <section id="chat-section" class="hidden">
+            <div class="chat-header">
+                <p>Connecté en tant que <strong id="current-username">---</strong></p>
+            </div>
+            <ul id="messages" aria-live="polite"></ul>
+            <form id="message-form" autocomplete="off">
+                <input id="message-input" type="text" placeholder="Votre message…" required>
+                <button type="submit">Envoyer</button>
+            </form>
+            <p class="hint">
+                Pour tester la scalabilité, ouvrez cette page depuis des serveurs lancés sur d'autres ports (ex : 4100 et 4101).
+            </p>
+        </section>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js" defer></script>
+</body>
+</html>
