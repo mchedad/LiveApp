@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercice 8 - Liste temps réel</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <section class="panel auth-panel">
+        <h1>Liste collaborative</h1>
+        <p class="subtitle">Exercice 8 · Persistance + Monitoring</p>
+        <div id="auth-forms">
+          <form id="register-form">
+            <h2>Créer un compte</h2>
+            <label>
+              Pseudo
+              <input type="text" name="username" minlength="3" maxlength="24" required />
+            </label>
+            <label>
+              Mot de passe
+              <input type="password" name="password" minlength="6" required />
+            </label>
+            <button type="submit">Inscription</button>
+          </form>
+          <form id="login-form">
+            <h2>Se connecter</h2>
+            <label>
+              Pseudo
+              <input type="text" name="username" required />
+            </label>
+            <label>
+              Mot de passe
+              <input type="password" name="password" required />
+            </label>
+            <button type="submit">Connexion</button>
+          </form>
+        </div>
+        <div id="session-info" class="hidden">
+          <p>Connecté comme <strong id="session-username"></strong></p>
+          <button id="logout-btn" type="button">Se déconnecter</button>
+        </div>
+        <p id="auth-error" class="error"></p>
+      </section>
+
+      <section class="panel app-panel">
+        <header class="app-header">
+          <div>
+            <h2>Items partagés</h2>
+            <p>Les modifications sont persistées en SQLite et diffusées via Socket.IO.</p>
+          </div>
+          <div id="connection-state" class="badge badge-idle">Déconnecté</div>
+        </header>
+
+        <div id="composer" class="hidden composer">
+          <form id="item-form">
+            <input type="text" id="item-content" placeholder="Ajouter un item..." maxlength="280" autocomplete="off" />
+            <button type="submit">Ajouter</button>
+          </form>
+          <p class="hint">Les items appartiennent à leur auteur. Un utilisateur ne peut modifier que ses propres entrées.</p>
+        </div>
+
+        <ul id="items-list" class="items"></ul>
+
+        <section class="panel sub-panel">
+          <div class="subpanel-column">
+            <h3>Utilisateurs connectés</h3>
+            <ul id="users-list" class="users-list"></ul>
+          </div>
+          <div class="subpanel-column">
+            <h3>Monitoring</h3>
+            <div class="metrics">
+              <div><span>Connexions</span><strong id="metric-connections">0</strong></div>
+              <div><span>Événements/min</span><strong id="metric-epm">0</strong></div>
+              <div><span>Latence</span><strong id="metric-latency">0 ms</strong></div>
+              <div><span>Items total</span><strong id="metric-items">0</strong></div>
+            </div>
+            <p id="metric-updated">–</p>
+          </div>
+        </section>
+
+        <section class="panel logs-panel">
+          <h3>Logs de synchronisation</h3>
+          <ul id="event-log"></ul>
+        </section>
+      </section>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
