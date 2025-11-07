@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CollabBoard Live</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div>
+          <h1>CollabBoard</h1>
+          <p>Texte + tableau blanc collaboratifs en temps reel.</p>
+        </div>
+        <div class="header-actions">
+          <span id="connectionStatus" class="status-indicator" data-state="idle">Hors ligne</span>
+          <button id="disconnectBtn" type="button">Se deconnecter</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="side-panel">
+          <section class="card">
+            <h2>Participants</h2>
+            <ul id="userList"></ul>
+          </section>
+          <section class="card notifications">
+            <h2>Notifications</h2>
+            <div id="notifications"></div>
+          </section>
+          <section class="card">
+            <h2>Monitoring</h2>
+            <div id="statusSummary">
+              <p>Connexions: --</p>
+              <p>Events/min: --</p>
+              <p>Rooms actives: --</p>
+            </div>
+          </section>
+        </aside>
+
+        <section class="collab-panel">
+          <div class="panel-head">
+            <div>
+              <strong>Salon:</strong> <span id="roomName">-</span>
+            </div>
+            <div id="typingIndicator" class="typing">&nbsp;</div>
+            <div class="mode-toggle">
+              <label for="modeSelect">Affichage</label>
+              <select id="modeSelect">
+                <option value="dual">Texte + tableau</option>
+                <option value="text">Texte uniquement</option>
+                <option value="paint">Tableau uniquement</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="surface">
+            <section class="text-zone" data-mode="text">
+              <header>
+                <h3>Zone de texte</h3>
+              </header>
+              <textarea id="collabText" spellcheck="false" placeholder="Ecrivez ici..."></textarea>
+            </section>
+
+            <section class="canvas-zone" data-mode="paint">
+              <header>
+                <h3>Tableau blanc</h3>
+                <div class="tools">
+                  <label>Couleur <input type="color" id="colorPicker" value="#f97316" /></label>
+                  <label>Epaisseur <input type="range" id="sizePicker" min="1" max="12" value="3" /></label>
+                  <button id="clearCanvas" type="button">Effacer</button>
+                </div>
+              </header>
+              <div class="canvas-wrapper">
+                <canvas id="board" width="800" height="480"></canvas>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+
+      <section class="connection-overlay" data-open="true">
+        <form id="joinForm" class="card">
+          <h2>Rejoindre une room</h2>
+          <label>
+            Pseudo
+            <input type="text" name="pseudo" placeholder="neo" required maxlength="32" />
+          </label>
+          <label>
+            Room
+            <input type="text" name="room" placeholder="general" required />
+          </label>
+          <label>
+            Token
+            <input type="text" name="token" placeholder="COLLAB-12345" required />
+          </label>
+          <label>
+            Mode
+            <select name="mode">
+              <option value="dual">Texte + tableau</option>
+              <option value="text">Texte uniquement</option>
+              <option value="paint">Tableau uniquement</option>
+            </select>
+          </label>
+          <button type="submit">Connexion</button>
+          <p class="helper">Astuce : tokens valides par defaut COLLAB-12345 / COLLAB-PAINT / COLLAB-TEAM.</p>
+          <p id="formError" class="error"></p>
+        </form>
+      </section>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./script.js" type="module"></script>
+  </body>
+</html>

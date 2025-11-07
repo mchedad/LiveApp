@@ -1,0 +1,33 @@
+﻿# Node dependencies
+node_modules/
+*/node_modules/
+
+# Lockfiles
+package-lock.json
+*/package-lock.json
+
+# Environment files
+*.env
+*.env.*
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Build / coverage artifacts
+coverage/
+dist/
+build/
+.temp/
+.tmp/
+.cache/
+
+# IDE / OS files
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
